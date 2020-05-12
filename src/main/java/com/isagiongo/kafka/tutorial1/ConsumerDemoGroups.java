@@ -4,11 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,13 +12,14 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
-public class ConsumerDemo {
+public class ConsumerDemoGroups {
 
     public static final String BOOTSTRAP_SERVER = "localhost:9092";
     public static final String GROUP_ID = "my-java-application";
     public static final String TOPIC = "first_topic";
 
-    static final Logger logger = LoggerFactory.getLogger(ConsumerDemo.class);
+
+    static final Logger logger = LoggerFactory.getLogger(ConsumerDemoGroups.class);
 
     public static void main(String[] args) {
         //Consumer properties

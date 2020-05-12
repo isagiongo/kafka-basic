@@ -27,25 +27,23 @@ public class ProducerDemoWithCallback {
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
         //Producer
-        KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
+        KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
         for (int i = 0; i < 10; i++) {
             //Producer record
             final ProducerRecord<String, String> record =
-                    new ProducerRecord<String, String>("first_topic", "Oi gentes " + Integer.toString(i));
+                    new ProducerRecord<>("first_topic", "id_" + Integer.toString(i),"Oi gentes " + Integer.toString(i));
 
             //Send data
-            producer.send(record, new Callback() {
-                public void onCompletion(RecordMetadata recordMetadata, Exception e) {
-                    if (Objects.isNull(e)) {
-                        logger.info("Received new metadata: \n" +
-                                "Topic: " + recordMetadata.topic() + "\n" +
-                                "Partition: " + recordMetadata.partition() + "\n" +
-                                "Offsets: " + recordMetadata.offset() + "\n" +
-                                "Timestamp: " + recordMetadata.timestamp());
-                    } else {
-                        logger.error("Error while producing ", e.getMessage());
-                    }
+            producer.send(record, (recordMetadata, e) -> {
+                if (Objects.isNull(e)) {
+                    logger.info("Received new metadata: \n" +
+                            "Topic: " + recordMetadata.topic() + "\n" +
+                            "Partition: " + recordMetadata.partition() + "\n" +
+                            "Offsets: " + recordMetadata.offset() + "\n" +
+                            "Timestamp: " + recordMetadata.timestamp());
+                } else {
+                    logger.error("Error while producing ", e.getMessage());
                 }
             });
         }
