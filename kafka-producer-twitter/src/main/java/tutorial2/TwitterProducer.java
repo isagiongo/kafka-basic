@@ -31,7 +31,7 @@ public class TwitterProducer {
 
     List<String> terms = Lists.newArrayList("sport", "java", "brasil");
 
-    Logger logger = LoggerFactory.getLogger(TwitterProducer.class);
+    Logger logger = LoggerFactory.getLogger(TwitterProducer.class.getName());
 
     public TwitterProducer() {
     }
